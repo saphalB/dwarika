@@ -162,8 +162,13 @@ function App() {
   };
 
   const Navbar = () => {
-    // Local search state INSIDE Navbar - this fixes everything!
+    // Local search state INSIDE Navbar
+    const [darkMode, setDarkMode] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [currentPage, setCurrentPage] = useState("home");
+    const [cart, setCart] = useState([]);
     const [localTempQuery, setLocalTempQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
 
     const localCommitSearch = () => {
       setSearchQuery(localTempQuery);
@@ -185,10 +190,21 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
+              {/* Blended Logo with multiple styling options */}
               <img
                 src="/logo.png"
                 alt="Dwarika Logo"
-                className="w-20 h-20 object-contain"
+                className={`w-20 h-20 object-contain transition-all duration-300 ${
+                  darkMode
+                    ? "opacity-90 brightness-110 contrast-90"
+                    : "opacity-95 brightness-105"
+                }`}
+                style={{
+                  mixBlendMode: darkMode ? "screen" : "multiply",
+                  filter: darkMode
+                    ? "drop-shadow(0 0 8px rgba(251, 191, 36, 0.3))"
+                    : "drop-shadow(0 0 4px rgba(217, 119, 6, 0.2))",
+                }}
               />
               <span
                 className={`text-3xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent`}
