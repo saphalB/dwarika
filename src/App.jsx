@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
+import Image1 from "../public/photo1.png";
+import Image2 from "../public/photo2.png";
+import Image3 from "../public/photo3.png";
+import Image4 from "../public/photo4.png";
+import Image5 from "../public/photo5.png";
 import {
   Search,
   ShoppingBag,
   Phone,
   Mail,
   MapPin,
+  Facebook,
+  Instagram,
   Star,
   Menu,
   X,
@@ -33,40 +40,35 @@ const products = [
     name: "Gold Necklace Set",
     price: 45000,
     rating: 5,
-    image:
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",
+    image: Image1,
   },
   {
     id: 2,
     name: "Diamond Ring",
     price: 85000,
     rating: 5,
-    image:
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop",
+    image: Image2,
   },
   {
     id: 3,
     name: "Gold Bangles",
     price: 35000,
     rating: 4,
-    image:
-      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop",
+    image: Image3,
   },
   {
     id: 4,
     name: "Pearl Earrings",
     price: 25000,
     rating: 5,
-    image:
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop",
+    image: Image4,
   },
   {
     id: 5,
     name: "Gold Chain",
     price: 55000,
     rating: 4,
-    image:
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop",
+    image: Image5,
   },
   {
     id: 6,
@@ -248,7 +250,7 @@ function App() {
             </div>
 
             <div className="flex items-center space-x-4">
-              {/* Search Bar - NOW FULLY WORKING */}
+              {/* Search Bar */}
               <div className="relative">
                 <input
                   type="text"
@@ -401,11 +403,7 @@ function App() {
 
   const Hero = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const heroImages = [
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&h=800&fit=crop",
-    ];
+    const heroImages = [Image1, Image2, Image3];
 
     useEffect(() => {
       const timer = setInterval(() => {
@@ -1197,22 +1195,53 @@ function App() {
               <li className="flex items-center space-x-2">
                 <Phone className="w-5 h-5 text-yellow-400" />
                 <span className={darkMode ? "text-gray-300" : "text-white/90"}>
-                  +977 1234567890
+                  +977 980132239
                 </span>
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="w-5 h-5 text-yellow-400" />
                 <span className={darkMode ? "text-gray-300" : "text-white/90"}>
-                  info@dwarika.com
+                  dwarikajeweller@gmail.com
                 </span>
               </li>
               <li className="flex items-center space-x-2">
                 <MapPin className="w-5 h-5 text-yellow-400" />
                 <span className={darkMode ? "text-gray-300" : "text-white/90"}>
-                  Patan, Nepal
+                  Sinamangal, Kathmandu, Nepal
                 </span>
               </li>
             </ul>
+            <div className="mt-6">
+              <h4 className="text-lg font-semibold mb-3 text-white">
+                Follow Us
+              </h4>
+              <div className="flex space-x-4">
+                <a
+                  href="https://www.facebook.com/profile.php?id=61559298830729"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${
+                    darkMode
+                      ? "text-gray-300 hover:text-yellow-400"
+                      : "text-white/90 hover:text-yellow-300"
+                  } transition-colors duration-200`}
+                >
+                  <Facebook className="w-6 h-6" />
+                </a>
+                <a
+                  href="https://www.instagram.com/dwarika_jeweller/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${
+                    darkMode
+                      ? "text-gray-300 hover:text-yellow-400"
+                      : "text-white/90 hover:text-yellow-300"
+                  } transition-colors duration-200`}
+                >
+                  <Instagram className="w-6 h-6" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -1247,7 +1276,7 @@ function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <img
-              src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=600&fit=crop"
+              src="photo4.png"
               alt="Jewelry"
               className="rounded-xl shadow-2xl"
             />
@@ -1263,29 +1292,38 @@ function App() {
                 darkMode ? "text-gray-300" : "text-gray-600"
               }`}
             >
-              Established in 1990, Dwarika has been serving the community with
-              authentic and exquisite gold jewelry for over three decades. Our
-              commitment to quality and craftsmanship has made us one of the
-              most trusted names in the industry.
+              Dwarika Jewellers was born from a deep respect for family legacy,
+              craftsmanship, and trust passed down from one generation to the
+              next. Founded in honor of our father’s name and values, Dwarika
+              Jewellers carries forward a tradition rooted in honesty,
+              precision, and timeless beauty. What began as a vision inspired by
+              our father’s dedication to quality and integrity has grown into a
+              brand that celebrates both heritage and modern elegance.
             </p>
             <p
               className={`text-lg mb-4 ${
                 darkMode ? "text-gray-300" : "text-gray-600"
               }`}
             >
-              Every piece of jewelry at Dwarika is crafted with precision and
-              passion by our skilled artisans. We blend traditional
-              craftsmanship with modern designs to create timeless pieces that
-              celebrate your special moments.
+              With a strong foundation in fine jewellery and diamonds, the
+              journey of Dwarika Jewellers has been shaped by passion, hard
+              work, and an unwavering commitment to excellence. Every piece we
+              create reflects not only artistry, but also the values taught to
+              us—trust, transparency, and respect for our customers.
             </p>
             <p
               className={`text-lg ${
                 darkMode ? "text-gray-300" : "text-gray-600"
               }`}
             >
-              From bridal collections to everyday elegance, we offer a wide
-              range of jewelry that caters to every taste and occasion. Visit us
-              and experience the Dwarika difference.
+              Today, the business is led by Laxmi Shrestha, a dedicated diamond
+              expert with a sharp eye for quality, authenticity, and timeless
+              design. With years of hands-on experience and deep knowledge of
+              diamonds and fine jewelry, Laxmi Shrestha ensures that every piece
+              meets the highest standards. Supporting this journey is Shree
+              Rajan, whose guidance, management, and constant support strengthen
+              our vision and daily operations. Together, we blend tradition with
+              modern expertise to serve our customers with excellence.
             </p>
           </div>
         </div>
@@ -1330,10 +1368,10 @@ function App() {
                     Phone
                   </h3>
                   <p className={darkMode ? "text-gray-300" : "text-gray-600"}>
-                    +977 1234567890
+                    +977 9801832239
                   </p>
                   <p className={darkMode ? "text-gray-300" : "text-gray-600"}>
-                    +977 0987654321
+                    +977 9801832239
                   </p>
                 </div>
               </div>
@@ -1350,10 +1388,10 @@ function App() {
                     Email
                   </h3>
                   <p className={darkMode ? "text-gray-300" : "text-gray-600"}>
-                    info@dwarika.com
+                    dwarikajeweller@gmail.com
                   </p>
                   <p className={darkMode ? "text-gray-300" : "text-gray-600"}>
-                    support@dwarika.com
+                    dwarika.vercel.app
                   </p>
                 </div>
               </div>
@@ -1370,7 +1408,7 @@ function App() {
                     Address
                   </h3>
                   <p className={darkMode ? "text-gray-300" : "text-gray-600"}>
-                    Main Street, Patan
+                    Sinamangal, Kathmandu
                   </p>
                   <p className={darkMode ? "text-gray-300" : "text-gray-600"}>
                     Bagmati Province, Nepal
