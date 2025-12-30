@@ -82,17 +82,17 @@ const products = [
 
 const testimonials = [
   {
-    name: "Priya Sharma",
+    name: "Suman Kafle",
     text: "Absolutely love my bridal jewelry from Dwarika! The craftsmanship is exquisite.",
     rating: 5,
   },
   {
-    name: "Rajesh Patel",
+    name: "RozYan",
     text: "Best gold shop in town. Authentic products and great customer service.",
     rating: 5,
   },
   {
-    name: "Anita Rai",
+    name: "Pirate Sunuwar",
     text: "Bought a beautiful necklace set for my daughter's wedding. Highly recommend!",
     rating: 5,
   },
@@ -163,12 +163,7 @@ function App() {
 
   const Navbar = () => {
     // Local search state INSIDE Navbar
-    const [darkMode, setDarkMode] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [currentPage, setCurrentPage] = useState("home");
-    const [cart, setCart] = useState([]);
     const [localTempQuery, setLocalTempQuery] = useState("");
-    const [searchQuery, setSearchQuery] = useState("");
 
     const localCommitSearch = () => {
       setSearchQuery(localTempQuery);
@@ -184,30 +179,19 @@ function App() {
         className={`sticky top-0 z-50 ${
           darkMode
             ? "bg-gray-900"
-            : "bg-gradient-to-b from-stone-100 via-stone-50 to-stone-100"
+            : "bg-linear-to-b from-stone-100 via-stone-50 to-stone-100"
         } shadow-lg`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              {/* Blended Logo with multiple styling options */}
               <img
                 src="/logo.png"
                 alt="Dwarika Logo"
-                className={`w-20 h-20 object-contain transition-all duration-300 ${
-                  darkMode
-                    ? "opacity-90 brightness-110 contrast-90"
-                    : "opacity-95 brightness-105"
-                }`}
-                style={{
-                  mixBlendMode: darkMode ? "screen" : "multiply",
-                  filter: darkMode
-                    ? "drop-shadow(0 0 8px rgba(251, 191, 36, 0.3))"
-                    : "drop-shadow(0 0 4px rgba(217, 119, 6, 0.2))",
-                }}
+                className="w-20 h-20 object-contain"
               />
               <span
-                className={`text-3xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent`}
+                className={`text-3xl font-bold bg-linear-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent`}
               >
                 Dwarika
               </span>
@@ -266,7 +250,7 @@ function App() {
             </div>
 
             <div className="flex items-center space-x-4">
-              {/* Search Bar */}
+              {/* Search Bar  */}
               <div className="relative">
                 <input
                   type="text"
@@ -419,7 +403,7 @@ function App() {
 
   const Hero = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const heroImages = [Image1, Image2, Image3];
+    const heroImages = [Image1, Image2, Image3, Image4, Image5];
 
     useEffect(() => {
       const timer = setInterval(() => {
@@ -432,8 +416,8 @@ function App() {
       <div
         className={`relative min-h-[90vh] flex items-center justify-center overflow-hidden ${
           darkMode
-            ? "bg-gradient-to-br from-gray-900 via-rose-900 to-gray-900"
-            : "bg-gradient-to-br from-amber-50 via-stone-50 to-rose-50"
+            ? "bg-linear-to-br from-gray-900 via-rose-900 to-gray-900"
+            : "bg-linear-to-br from-amber-50 via-stone-50 to-rose-50"
         }`}
       >
         {/* Animated Background */}
@@ -470,7 +454,7 @@ function App() {
                 }`}
               >
                 Timeless{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-yellow-400 via-yellow-500 to-yellow-600">
                   Elegance
                 </span>
                 <br />
@@ -492,13 +476,13 @@ function App() {
                     setSearchQuery("");
                     setCurrentPage("search");
                   }}
-                  className="group relative bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
+                  className="group relative bg-linear-to-r from-amber-600 via-yellow-500 to-amber-700 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     Explore Collection
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-amber-700 to-yellow-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-linear-to-r from-amber-700 to-yellow-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </button>
                 <button
                   onClick={() => setCurrentPage("contact")}
@@ -520,7 +504,7 @@ function App() {
                       darkMode ? "text-white" : "text-gray-900"
                     }`}
                   >
-                    35+
+                    10+
                   </div>
                   <div
                     className={`text-sm ${
@@ -567,7 +551,7 @@ function App() {
 
             {/* Right Image Slider */}
             <div className="relative">
-              <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+              <div className="relative h-125 rounded-3xl overflow-hidden shadow-2xl">
                 {heroImages.map((image, index) => (
                   <img
                     key={index}
@@ -578,7 +562,7 @@ function App() {
                     }`}
                   />
                 ))}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
               </div>
 
               {/* Image Indicators */}
@@ -653,9 +637,7 @@ function App() {
     return (
       <div
         className={`py-20 ${
-          darkMode
-            ? "bg-gray-900"
-            : "bg-gradient-to-b from-stone-100 to-stone-50"
+          darkMode ? "bg-gray-900" : "bg-linear-to-b from-stone-100 to-stone-50"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -813,7 +795,7 @@ function App() {
                   </div>
                   <div className="flex items-center justify-between mb-4">
                     <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
-                      रु{product.price.toLocaleString()}
+                      ₹{product.price.toLocaleString()}
                     </p>
                     <button
                       className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
@@ -1089,7 +1071,6 @@ function App() {
                 alt="Dwarika-Logo"
                 className="w-16 h-16 object-contain"
               />
-
               <h3 className="text-3xl font-bold text-yellow-400">Dwarika</h3>
             </div>
             <p className={darkMode ? "text-gray-300" : "text-white/90"}>
@@ -1214,7 +1195,7 @@ function App() {
               <li className="flex items-center space-x-2">
                 <Phone className="w-5 h-5 text-yellow-400" />
                 <span className={darkMode ? "text-gray-300" : "text-white/90"}>
-                  +977 980132239
+                  +977 9808132239
                 </span>
               </li>
               <li className="flex items-center space-x-2">
@@ -1231,10 +1212,13 @@ function App() {
               </li>
             </ul>
             <div className="mt-6">
+               
               <h4 className="text-lg font-semibold mb-3 text-white">
-                Follow Us
+                  Follow Us  
               </h4>
+               
               <div className="flex space-x-4">
+                 
                 <a
                   href="https://www.facebook.com/profile.php?id=61559298830729"
                   target="_blank"
@@ -1245,8 +1229,9 @@ function App() {
                       : "text-white/90 hover:text-yellow-300"
                   } transition-colors duration-200`}
                 >
-                  <Facebook className="w-6 h-6" />
+                    <Facebook className="w-6 h-6" /> 
                 </a>
+                 
                 <a
                   href="https://www.instagram.com/dwarika_jeweller/"
                   target="_blank"
@@ -1257,8 +1242,9 @@ function App() {
                       : "text-white/90 hover:text-yellow-300"
                   } transition-colors duration-200`}
                 >
-                  <Instagram className="w-6 h-6" />
+                    <Instagram className="w-6 h-6" />
                 </a>
+                 
               </div>
             </div>
           </div>
@@ -1281,7 +1267,7 @@ function App() {
       className={`min-h-screen ${
         darkMode
           ? "bg-gray-900"
-          : "bg-gradient-to-b from-stone-100 via-stone-50 to-stone-100"
+          : "bg-linear-to-b from-stone-100 via-stone-50 to-stone-100"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -1295,14 +1281,14 @@ function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <img
-              src="photo4.png"
+              src="photo2.png"
               alt="Jewelry"
               className="rounded-xl shadow-2xl"
             />
           </div>
           <div>
             <h2
-              className={`text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700`}
+              className={`text-3xl font-bold mb-6 text-transparent bg-clip-text bg-linear-to-r from-amber-600 via-yellow-500 to-amber-700`}
             >
               Our Story
             </h2>
@@ -1312,22 +1298,22 @@ function App() {
               }`}
             >
               Dwarika Jewellers was born from a deep respect for family legacy,
-              craftsmanship, and trust passed down from one generation to the
-              next. Founded in honor of our father’s name and values, Dwarika
-              Jewellers carries forward a tradition rooted in honesty,
+                craftsmanship, and trust passed down from one generation to the
+                next. Founded in honor of our father’s name and values, Dwarika
+                Jewellers carries forward a tradition rooted in honesty,  
               precision, and timeless beauty. What began as a vision inspired by
-              our father’s dedication to quality and integrity has grown into a
-              brand that celebrates both heritage and modern elegance.
+                our father’s dedication to quality and integrity has grown into
+              a brand that celebrates both heritage and modern elegance.
             </p>
             <p
               className={`text-lg mb-4 ${
                 darkMode ? "text-gray-300" : "text-gray-600"
               }`}
             >
-              With a strong foundation in fine jewellery and diamonds, the
-              journey of Dwarika Jewellers has been shaped by passion, hard
-              work, and an unwavering commitment to excellence. Every piece we
-              create reflects not only artistry, but also the values taught to
+              With a strong foundation in fine jewellery and diamonds, the  
+              journey of Dwarika Jewellers has been shaped by passion, hard  
+              work, and an unwavering commitment to excellence. Every piece we  
+              create reflects not only artistry, but also the values taught to  
               us—trust, transparency, and respect for our customers.
             </p>
             <p
@@ -1336,13 +1322,14 @@ function App() {
               }`}
             >
               Today, the business is led by Laxmi Shrestha, a dedicated diamond
-              expert with a sharp eye for quality, authenticity, and timeless
-              design. With years of hands-on experience and deep knowledge of
-              diamonds and fine jewelry, Laxmi Shrestha ensures that every piece
-              meets the highest standards. Supporting this journey is Shree
-              Rajan, whose guidance, management, and constant support strengthen
-              our vision and daily operations. Together, we blend tradition with
-              modern expertise to serve our customers with excellence.
+                expert with a sharp eye for quality, authenticity, and timeless
+                design. With years of hands-on experience and deep knowledge of
+                diamonds and fine jewelry, Laxmi Shrestha ensures that every
+              piece meets the highest standards. Supporting this journey is
+              Shree Rajan, whose guidance, management, and constant support
+              strengthen our vision and daily operations. Together, we blend
+              tradition with modern expertise to serve our customers with
+              excellence.
             </p>
           </div>
         </div>
@@ -1355,7 +1342,7 @@ function App() {
       className={`min-h-screen ${
         darkMode
           ? "bg-gray-900"
-          : "bg-gradient-to-b from-stone-100 via-stone-50 to-stone-100"
+          : "bg-linear-to-b from-stone-100 via-stone-50 to-stone-100"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -1369,7 +1356,7 @@ function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
             <h2
-              className={`text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700`}
+              className={`text-3xl font-bold mb-6 text-transparent bg-clip-text bg-linear-to-r from-amber-600 via-yellow-500 to-amber-700`}
             >
               Get In Touch
             </h2>
@@ -1387,10 +1374,10 @@ function App() {
                     Phone
                   </h3>
                   <p className={darkMode ? "text-gray-300" : "text-gray-600"}>
-                    +977 9801832239
+                    +977 9808132239
                   </p>
                   <p className={darkMode ? "text-gray-300" : "text-gray-600"}>
-                    +977 9801832239
+                    +977 9808132239
                   </p>
                 </div>
               </div>
@@ -1516,7 +1503,7 @@ function App() {
           className={`relative max-w-4xl w-full max-h-[90vh] overflow-y-auto ${
             darkMode
               ? "bg-gray-800"
-              : "bg-gradient-to-br from-stone-50 via-stone-100 to-amber-50"
+              : "bg-linear-to-br from-stone-50 via-stone-100 to-amber-50"
           } rounded-2xl shadow-2xl`}
         >
           <button
@@ -1570,7 +1557,7 @@ function App() {
                   </span>
                 </div>
                 <p className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600 mb-6">
-                  रु{selectedProduct.price.toLocaleString()}
+                  ₹{selectedProduct.price.toLocaleString()}
                 </p>
               </div>
 
@@ -1640,7 +1627,7 @@ function App() {
                   className="flex-1 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 text-white py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   <ShoppingCart className="w-5 h-5" />
-                  Add to Cart - Rs
+                  Add to Cart - ₹
                   {(selectedProduct.price * quantity).toLocaleString()}
                 </button>
               </div>
@@ -1734,7 +1721,7 @@ function App() {
                       ))}
                     </div>
                     <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600 mb-4">
-                      रु{product.price.toLocaleString()}
+                      ₹{product.price.toLocaleString()}
                     </p>
                     <button
                       onClick={() => {
@@ -1840,7 +1827,7 @@ function App() {
                         {item.product.name}
                       </h3>
                       <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600 mb-4">
-                        रु{item.product.price.toLocaleString()}
+                        ₹{item.product.price.toLocaleString()}
                       </p>
 
                       {/* Quantity Controls */}
@@ -1905,7 +1892,7 @@ function App() {
                           darkMode ? "text-gray-300" : "text-gray-700"
                         }`}
                       >
-                        Subtotal: Rs
+                        Subtotal: ₹
                         {(item.product.price * item.quantity).toLocaleString()}
                       </p>
                     </div>
@@ -1944,7 +1931,7 @@ function App() {
                         darkMode ? "text-white" : "text-gray-900"
                       }`}
                     >
-                      रु{getCartTotal().toLocaleString()}
+                      ₹{getCartTotal().toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -1958,7 +1945,7 @@ function App() {
                         darkMode ? "text-white" : "text-gray-900"
                       }`}
                     >
-                      Rs500
+                      ₹500
                     </span>
                   </div>
                   <div
@@ -1975,7 +1962,7 @@ function App() {
                         Total
                       </span>
                       <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
-                        रु{(getCartTotal() + 500).toLocaleString()}
+                        ₹{(getCartTotal() + 500).toLocaleString()}
                       </span>
                     </div>
                   </div>
@@ -2273,8 +2260,7 @@ function App() {
                           darkMode ? "text-white" : "text-gray-900"
                         }`}
                       >
-                        Rs
-                        {(item.product.price * item.quantity).toLocaleString()}
+                        ₹{(item.product.price * item.quantity).toLocaleString()}
                       </span>
                     </div>
                   ))}
@@ -2294,7 +2280,7 @@ function App() {
                           darkMode ? "text-white" : "text-gray-900"
                         }`}
                       >
-                        रु{getCartTotal().toLocaleString()}
+                        ₹{getCartTotal().toLocaleString()}
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -2308,7 +2294,7 @@ function App() {
                           darkMode ? "text-white" : "text-gray-900"
                         }`}
                       >
-                        Rs500
+                        ₹500
                       </span>
                     </div>
                     <div
@@ -2324,7 +2310,7 @@ function App() {
                         Total
                       </span>
                       <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
-                        रु{(getCartTotal() + 500).toLocaleString()}
+                        ₹{(getCartTotal() + 500).toLocaleString()}
                       </span>
                     </div>
                   </div>
@@ -2343,7 +2329,7 @@ function App() {
     const handlePayment = (e) => {
       e.preventDefault();
       alert(
-        "Order placed successfully! You will pay Rs" +
+        "Order placed successfully! You will pay ₹" +
           (getCartTotal() + 500).toLocaleString() +
           " on delivery."
       );
@@ -2562,7 +2548,7 @@ function App() {
                               darkMode ? "text-amber-200" : "text-amber-700"
                             }`}
                           >
-                            You will pay Rs
+                            You will pay ₹
                             {(getCartTotal() + 500).toLocaleString()} when your
                             order is delivered.
                           </p>
@@ -2576,7 +2562,7 @@ function App() {
                   className="w-full bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 text-white py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   <Wallet className="w-5 h-5" />
-                  Place Order - Pay Rs{(
+                  Place Order - Pay ₹{(
                     getCartTotal() + 500
                   ).toLocaleString()}{" "}
                   on Delivery
@@ -2614,7 +2600,7 @@ function App() {
                         darkMode ? "text-white" : "text-gray-900"
                       }`}
                     >
-                      रु{getCartTotal().toLocaleString()}
+                      ₹{getCartTotal().toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -2628,7 +2614,7 @@ function App() {
                         darkMode ? "text-white" : "text-gray-900"
                       }`}
                     >
-                      Rs500
+                      ₹500
                     </span>
                   </div>
                   <div
@@ -2645,7 +2631,7 @@ function App() {
                         Total
                       </span>
                       <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
-                        रु{(getCartTotal() + 500).toLocaleString()}
+                        ₹{(getCartTotal() + 500).toLocaleString()}
                       </span>
                     </div>
                   </div>
@@ -2787,7 +2773,7 @@ function App() {
                     </div>
                     <div className="flex items-center justify-between mb-4">
                       <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
-                        रु{product.price.toLocaleString()}
+                        ₹{product.price.toLocaleString()}
                       </p>
                       <button
                         className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
