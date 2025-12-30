@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image1 from "../public/photo1.png";
 import Image2 from "../public/photo2.png";
 import Image3 from "../public/photo3.png";
@@ -162,242 +162,249 @@ function App() {
   };
 
   const Navbar = () => {
-    // Local search state INSIDE Navbar
     const [localTempQuery, setLocalTempQuery] = useState("");
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
-    const localCommitSearch = () => {
-      setSearchQuery(localTempQuery);
-      if (localTempQuery.trim() !== "") {
-        setCurrentPage("search");
-      } else {
-        setCurrentPage("home");
+    // Assuming these are from a context or parent props
+    // const { darkMode, setDarkMode, currentPage, setCurrentPage, searchQuery, setSearchQuery, cart } = useYourContext();
+
+    const localCommitSearch = useCallback(() => {
+      setSearchQuery(localTempQuery.trim());
+      setCurrentPage(localTempQuery.trim() ? "search" : "home");
+      setMobileSearchOpen(false); // Close mobile search after submitting
+    }, [localTempQuery, setSearchQuery, setCurrentPage]);
+
+    // Sync local query with global search when on search page
+    useEffect(() => {
+      if (currentPage === "search" && !mobileSearchOpen) {
+        setLocalTempQuery(searchQuery || "");
       }
-    };
+    }, [currentPage, searchQuery, mobileSearchOpen]);
+
+    // Close mobile menus when page changes
+    useEffect(() => {
+      setMobileMenuOpen(false);
+      setMobileSearchOpen(false);
+    }, [currentPage]);
 
     return (
-      <nav
-        className={`sticky top-0 z-50 ${
-          darkMode
-            ? "bg-gray-900"
-            : "bg-linear-to-b from-stone-100 via-stone-50 to-stone-100"
-        } shadow-lg`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <img
-                src="/logo.png"
-                alt="Dwarika Logo"
-                className="w-20 h-20 object-contain"
-              />
-              <span
-                className={`text-3xl font-bold bg-linear-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent`}
-              >
-                Dwarika
-              </span>
-            </div>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <button
-                onClick={() => setCurrentPage("home")}
-                className={`${
-                  currentPage === "home"
-                    ? "text-amber-600"
-                    : darkMode
-                    ? "text-gray-300"
-                    : "text-gray-700"
-                } hover:text-amber-600 font-medium`}
-              >
-                Home
-              </button>
-              <button
-                onClick={() => setCurrentPage("products")}
-                className={`${
-                  currentPage === "products"
-                    ? "text-amber-600"
-                    : darkMode
-                    ? "text-gray-300"
-                    : "text-gray-700"
-                } hover:text-amber-600 font-medium`}
-              >
-                Products
-              </button>
-              <button
-                onClick={() => setCurrentPage("about")}
-                className={`${
-                  currentPage === "about"
-                    ? "text-amber-600"
-                    : darkMode
-                    ? "text-gray-300"
-                    : "text-gray-700"
-                } hover:text-amber-600 font-medium`}
-              >
-                About
-              </button>
-              <button
-                onClick={() => setCurrentPage("contact")}
-                className={`${
-                  currentPage === "contact"
-                    ? "text-amber-600"
-                    : darkMode
-                    ? "text-gray-300"
-                    : "text-gray-700"
-                } hover:text-amber-600 font-medium`}
-              >
-                Contact
-              </button>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              {/* Search Bar  */}
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={localTempQuery}
-                  onChange={(e) => setLocalTempQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      localCommitSearch();
-                    }
-                  }}
-                  className={`pl-10 pr-12 py-2 rounded-full w-48 lg:w-64 focus:outline-none focus:ring-2 focus:ring-amber-600 transition-all duration-200 ${
-                    darkMode
-                      ? "bg-gray-800 text-white placeholder-gray-400"
-                      : "bg-stone-100 text-gray-900 placeholder-stone-500"
-                  }`}
-                />
-                <Search className="absolute left-3 top-2.5 w-5 h-5 text-gray-400 pointer-events-none" />
+      <>
+        <nav
+          className={`sticky top-0 z-50 shadow-lg ${
+            darkMode
+              ? "bg-gray-900"
+              : "bg-gradient-to-b from-stone-100 via-stone-50 to-stone-100"
+          }`}
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              {/* Left: Logo */}
+              <div className="flex items-center">
                 <button
-                  onClick={localCommitSearch}
-                  className={`absolute right-3 top-2.5 rounded-full transition-all duration-200 ${
-                    localTempQuery.trim()
-                      ? "bg-amber-600 text-white hover:bg-amber-700 shadow-md hover:shadow-lg"
-                      : darkMode
-                      ? "bg-gray-700 text-gray-400 hover:bg-gray-600"
-                      : "bg-stone-300 text-stone-600 hover:bg-stone-400"
-                  }`}
-                  aria-label="Search"
+                  onClick={() => setCurrentPage("home")}
+                  className="flex items-center focus:outline-none hover:opacity-90 transition-opacity"
+                  aria-label="Go to Home"
                 >
-                  <Search className="w-6 h-6" />
+                  <img
+                    src="/logo.png"
+                    alt="Dwarika Logo"
+                    className="w-12 h-12 sm:w-16 sm:h-16 object-contain"
+                  />
+                  {/* "Dwarika" text only visible on md+ screens */}
+                  <span className="hidden md:block ml-3 text-3xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent">
+                    Dwarika
+                  </span>
                 </button>
               </div>
 
-              {/* Cart Icon */}
-              <button
-                onClick={() => setCurrentPage("cart")}
-                className="relative p-2 rounded-full hover:bg-amber-100 dark:hover:bg-gray-700 transition-colors"
-              >
-                <ShoppingCart
-                  className={`w-6 h-6 ${
-                    darkMode ? "text-white" : "text-gray-700"
-                  }`}
-                />
-                {cart.length > 0 && (
-                  <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                    {cart.reduce((sum, item) => sum + item.quantity, 0)}
-                  </span>
-                )}
-              </button>
+              {/* Center: Desktop Navigation */}
+              <div className="hidden md:flex items-center space-x-8">
+                {["home", "products", "about", "contact"].map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`capitalize font-medium transition-colors ${
+                      currentPage === page
+                        ? "text-amber-600"
+                        : darkMode
+                        ? "text-gray-300 hover:text-amber-400"
+                        : "text-gray-700 hover:text-amber-600"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
 
-              {/* Dark Mode Toggle */}
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className={`p-2 rounded-full ${
-                  darkMode ? "bg-gray-800" : "bg-stone-200"
-                } hover:bg-amber-100 dark:hover:bg-gray-700`}
-              >
-                {darkMode ? (
-                  <Sun className="w-5 h-5 text-yellow-400" />
-                ) : (
-                  <Moon className="w-5 h-5 text-amber-600" />
-                )}
-              </button>
+              {/* Right: Icons */}
+              <div className="flex items-center space-x-3 sm:space-x-4">
+                {/* Desktop Search Bar */}
+                <div className="hidden md:relative md:block">
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={localTempQuery}
+                    onChange={(e) => setLocalTempQuery(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && localCommitSearch()}
+                    className={`pl-10 pr-12 py-2 rounded-full w-48 lg:w-64 focus:outline-none focus:ring-2 focus:ring-amber-600 transition-all ${
+                      darkMode
+                        ? "bg-gray-800 text-white placeholder-gray-400"
+                        : "bg-stone-100 text-gray-900 placeholder-stone-500"
+                    }`}
+                  />
+                  <Search className="absolute left-3 top-2.5 w-5 h-5 text-gray-400 pointer-events-none" />
+                  <button
+                    onClick={localCommitSearch}
+                    className={`absolute right-3 top-2.5 p-1 rounded-full transition-all ${
+                      localTempQuery.trim()
+                        ? "bg-amber-600 text-white hover:bg-amber-700"
+                        : darkMode
+                        ? "bg-gray-700 text-gray-400"
+                        : "bg-stone-300 text-stone-600"
+                    }`}
+                  >
+                    <Search className="w-5 h-5" />
+                  </button>
+                </div>
 
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-2"
-              >
-                {mobileMenuOpen ? (
-                  <X className={darkMode ? "text-white" : "text-gray-900"} />
-                ) : (
-                  <Menu className={darkMode ? "text-white" : "text-gray-900"} />
-                )}
-              </button>
+                {/* Mobile Search Icon (visible only on mobile) */}
+                <button
+                  onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
+                  className="md:hidden p-2 rounded-full hover:bg-amber-100 dark:hover:bg-gray-700"
+                  aria-label="Search"
+                >
+                  <Search
+                    className={`w-6 h-6 ${
+                      darkMode ? "text-white" : "text-gray-700"
+                    }`}
+                  />
+                </button>
+
+                {/* Cart */}
+                <button
+                  onClick={() => setCurrentPage("cart")}
+                  className="relative p-2 rounded-full hover:bg-amber-100 dark:hover:bg-gray-700 transition-colors"
+                >
+                  <ShoppingCart
+                    className={`w-6 h-6 ${
+                      darkMode ? "text-white" : "text-gray-700"
+                    }`}
+                  />
+                  {cart.length > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                      {cart.reduce((sum, item) => sum + item.quantity, 0)}
+                    </span>
+                  )}
+                </button>
+
+                {/* Dark Mode Toggle */}
+                <button
+                  onClick={() => setDarkMode(!darkMode)}
+                  className={`p-2 rounded-full transition-colors ${
+                    darkMode ? "bg-gray-800" : "bg-stone-200"
+                  } hover:bg-amber-100 dark:hover:bg-gray-700`}
+                  aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
+                >
+                  {darkMode ? (
+                    <Sun className="w-5 h-5 text-yellow-400" />
+                  ) : (
+                    <Moon className="w-5 h-5 text-amber-600" />
+                  )}
+                </button>
+
+                {/* Mobile Menu Toggle */}
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="md:hidden p-2"
+                  aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                  aria-expanded={mobileMenuOpen}
+                >
+                  {mobileMenuOpen ? (
+                    <X
+                      className={`w-6 h-6 ${
+                        darkMode ? "text-white" : "text-gray-900"
+                      }`}
+                    />
+                  ) : (
+                    <Menu
+                      className={`w-6 h-6 ${
+                        darkMode ? "text-white" : "text-gray-900"
+                      }`}
+                    />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="md:hidden pb-4">
-              <div className="flex flex-col space-y-3">
-                <button
-                  onClick={() => {
-                    setCurrentPage("home");
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`text-left ${
-                    currentPage === "home"
-                      ? "text-amber-600"
-                      : darkMode
-                      ? "text-gray-300"
-                      : "text-gray-700"
-                  } hover:text-amber-600`}
-                >
-                  Home
-                </button>
-                <button
-                  onClick={() => {
-                    setCurrentPage("products");
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`text-left ${
-                    currentPage === "products"
-                      ? "text-amber-600"
-                      : darkMode
-                      ? "text-gray-300"
-                      : "text-gray-700"
-                  } hover:text-amber-600`}
-                >
-                  Products
-                </button>
-                <button
-                  onClick={() => {
-                    setCurrentPage("about");
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`text-left ${
-                    currentPage === "about"
-                      ? "text-amber-600"
-                      : darkMode
-                      ? "text-gray-300"
-                      : "text-gray-700"
-                  } hover:text-amber-600`}
-                >
-                  About
-                </button>
-                <button
-                  onClick={() => {
-                    setCurrentPage("contact");
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`text-left ${
-                    currentPage === "contact"
-                      ? "text-amber-600"
-                      : darkMode
-                      ? "text-gray-300"
-                      : "text-gray-700"
-                  } hover:text-amber-600`}
-                >
-                  Contact
-                </button>
+          {/* Mobile Search Bar (full width when open) */}
+          {mobileSearchOpen && (
+            <div
+              className={`border-t ${
+                darkMode
+                  ? "border-gray-700 bg-gray-900"
+                  : "border-stone-200 bg-white"
+              }`}
+            >
+              <div className="px-4 py-3">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={localTempQuery}
+                    onChange={(e) => setLocalTempQuery(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && localCommitSearch()}
+                    autoFocus
+                    className={`w-full pl-10 pr-12 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-600 ${
+                      darkMode
+                        ? "bg-gray-800 text-white placeholder-gray-400"
+                        : "bg-stone-100 text-gray-900 placeholder-stone-500"
+                    }`}
+                  />
+                  <Search className="absolute left-3 top-3.5 w-6 h-6 text-gray-400 pointer-events-none" />
+                  <button
+                    onClick={localCommitSearch}
+                    className="absolute right-3 top-3 p-2 rounded-full bg-amber-600 text-white hover:bg-amber-700"
+                  >
+                    <Search className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
             </div>
           )}
-        </div>
-      </nav>
+
+          {/* Mobile Menu Dropdown */}
+          {mobileMenuOpen && (
+            <div
+              className={`border-t ${
+                darkMode ? "border-gray-700" : "border-stone-200"
+              }`}
+            >
+              <div className="px-4 py-4 space-y-3">
+                {["home", "products", "about", "contact"].map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => {
+                      setCurrentPage(page);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`block w-full text-left capitalize font-medium py-2 ${
+                      currentPage === page
+                        ? "text-amber-600"
+                        : darkMode
+                        ? "text-gray-300 hover:text-amber-400"
+                        : "text-gray-700 hover:text-amber-600"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </nav>
+      </>
     );
   };
 
