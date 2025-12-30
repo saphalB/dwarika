@@ -4,6 +4,7 @@ import Image2 from "../public/photo2.png";
 import Image3 from "../public/photo3.png";
 import Image4 from "../public/photo4.png";
 import Image5 from "../public/photo5.png";
+import Image6 from "../public/photo6.png";
 import {
   Search,
   ShoppingBag,
@@ -54,7 +55,7 @@ const products = [
     name: "Gold Bangles",
     price: 35000,
     rating: 4,
-    image: Image3,
+    image: Image6,
   },
   {
     id: 4,
@@ -75,8 +76,7 @@ const products = [
     name: "Bridal Set",
     price: 125000,
     rating: 5,
-    image:
-      "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400&h=400&fit=crop",
+    image: Image3,
   },
 ];
 
